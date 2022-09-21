@@ -81,17 +81,18 @@ export default {
     // },
     initHomeData () {
       this.$api.home.base().then(res => {
-        this.banner = res.data.data.banner
-        this.mall = res.data.data.nav_test
-        this.tab = res.data.data.hot_banner
+        console.log(res)
+        this.banner = res.data.banner
+        this.mall = res.data.nav_test
+        this.tab = res.data.hot_banner
       })
     },
     async fetchProductList () {
       const res = await this.$api.product.list(this.fetchProductParams)
       if (this.fetchProductParams.page === 1) {
-        this.product = res.data.data
+        this.product = res.data
       } else {
-        this.product = this.product.concat(res.data.data)
+        this.product = this.product.concat(res.data)
       }
     },
     navChange (item) {

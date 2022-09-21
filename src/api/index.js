@@ -8,7 +8,7 @@ const api = {
     list: (params) => axios.get('/home/product', params)
   },
   category: {
-    tree: () => axios.get('/home/tree')
+    tree: () => axios.get('/home/category')
   }
 }
 

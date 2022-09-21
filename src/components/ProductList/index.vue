@@ -5,7 +5,7 @@
     :key="index"
     >
       <dt class="image">
-        <img :src="item.images" alt="">
+        <img :src="item.img" alt="">
       </dt>
       <dd>
         <header>
