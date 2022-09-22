@@ -68,6 +68,7 @@ export default {
     position: fixed;
     bottom: 0;
     left: 0;
+    z-index: 10;
     justify-content: space-around;
     background-color: #fff;
     a{

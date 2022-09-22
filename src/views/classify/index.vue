@@ -9,8 +9,19 @@
     <main id="main">
       <TabChange
       class="left-tab"
-      :category="category"
+      tab-name="categoryName"
+      :tab="leftMenu"
+      layout="column"
+      @change="navChange"
       />
+      <div class="right-main">
+        <TabChange
+        class="right-tab"
+        :tab="rightMenu"
+        tab-name="categoryName"
+        />
+        <ProductList :product="product"/>
+      </div>
     </main>
   </div>
 </template>
@@ -20,18 +31,55 @@ export default {
   name: 'classify-tab',
   data () {
     return {
-      category: []
+      leftMenu: [],
+      rightMenu: [],
+      product: [],
+      fetchProductParams: {
+        page: 1,
+        page_size: 10,
+        class_id: 1
+      }
     }
   },
   created () {
     this.initData()
   },
+  watch: {
+    fetchProductParams: {
+      handler: 'fetchProductList',
+      deep: true,
+      immediate: true
+    }
+  },
   methods: {
-    initData () {
-      this.$api.category.tree().then(res => {
-        this.category = res.data.data
-        console.log(res.data.data)
-      })
+    async initData () {
+      const res = await this.$api.category.tree()
+      this.leftMenu = res.data
+      this.rightMenu = [{
+        categoryId: res.data[0].categoryId,
+        categoryName: '全部'
+      }].concat(res.data[0].children)
+    },
+    async fetchProductList () {
+      const res = await this.$api.product.list(this.fetchProductParams)
+      if (this.fetchProductParams.page === 1) {
+        this.product = res.data
+      } else {
+        this.product = this.product.concat(res.data)
+      }
+    },
+    navChange (item) {
+      console.log(item.categoryId)
+      if (item.children) {
+        this.fetchProductParams.class_id = item.categoryId
+        this.fetchProductParams.page = 1
+        this.rightMenu = [{
+          categoryId: item.categoryId,
+          categoryName: '全部'
+        }].concat(item.children)
+      } else {
+        this.rightMenu = [{ categoryName: '全部' }]
+      }
     }
   }
 }
@@ -40,6 +88,9 @@ export default {
 <style lang="scss" scoped>
 .classify-wrap{
   @include wh(100vw, 100vh);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   #header{
     @include wh(100vw, 98px);
     @include flex(row, center, center);
@@ -67,7 +118,28 @@ export default {
     }
   }
   #main{
+    width: 100%;
     @include flex(row, flex-start, flex-start);
+    flex: 1;
+    overflow: hidden;
+    ::v-deep .right-main{
+      width: calc(100% - 172px);
+      flex-shrink: 0;
+      .tab-wrap{
+        height: 55px;
+        ul {
+          li {
+            font-size: 12px;
+            color: #999;
+            line-height: 55px;
+            &.active{
+              color: #333;
+              font-weight: normal;
+            }
+          }
+        }
+      }
+    }
   }
 }
 </style>
