@@ -19,8 +19,9 @@
         class="right-tab"
         :tab="rightMenu"
         tab-name="categoryName"
+        @change="rightChange"
         />
-        <ProductList :product="product"/>
+        <ProductList class="product-list" :product="product"/>
       </div>
     </main>
   </div>
@@ -37,7 +38,7 @@ export default {
       fetchProductParams: {
         page: 1,
         page_size: 10,
-        class_id: 1
+        categoryId: 1
       }
     }
   },
@@ -46,7 +47,7 @@ export default {
   },
   watch: {
     fetchProductParams: {
-      handler: 'fetchProductList',
+      handler: 'fetchCategory',
       deep: true,
       immediate: true
     }
@@ -60,7 +61,7 @@ export default {
         categoryName: '全部'
       }].concat(res.data[0].children)
     },
-    async fetchProductList () {
+    async fetchCategory () {
       const res = await this.$api.product.list(this.fetchProductParams)
       if (this.fetchProductParams.page === 1) {
         this.product = res.data
@@ -69,9 +70,8 @@ export default {
       }
     },
     navChange (item) {
-      console.log(item.categoryId)
       if (item.children) {
-        this.fetchProductParams.class_id = item.categoryId
+        this.fetchProductParams.categoryId = item.categoryId
         this.fetchProductParams.page = 1
         this.rightMenu = [{
           categoryId: item.categoryId,
@@ -79,7 +79,13 @@ export default {
         }].concat(item.children)
       } else {
         this.rightMenu = [{ categoryName: '全部' }]
+        this.fetchProductParams.categoryId = item.categoryId
+        this.fetchProductParams.page = 1
       }
+    },
+    rightChange (item) {
+      this.fetchProductParams.categoryId = item.categoryId
+      this.fetchProductParams.page = 1
     }
   }
 }
@@ -123,7 +129,7 @@ export default {
     flex: 1;
     overflow: hidden;
     ::v-deep .right-main{
-      width: calc(100% - 172px);
+      flex: 1;
       flex-shrink: 0;
       .tab-wrap{
         height: 55px;

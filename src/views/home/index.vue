@@ -39,7 +39,7 @@ export default {
       fetchProductParams: {
         page: 1,
         page_size: 10,
-        class_id: 1
+        categoryId: 1
       },
       num: 0
     }
@@ -81,7 +81,6 @@ export default {
     // },
     initHomeData () {
       this.$api.home.base().then(res => {
-        console.log(res)
         this.banner = res.data.banner
         this.mall = res.data.nav_test
         this.tab = res.data.hot_banner
@@ -96,7 +95,7 @@ export default {
       }
     },
     navChange (item) {
-      this.fetchProductParams.class_id = item.id
+      this.fetchProductParams.categoryId = item.id
       this.fetchProductParams.page = 1
       const top = this.$refs.content.offsetTop
       const scrollTop = document.querySelector('html').scrollTop
