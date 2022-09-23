@@ -13,6 +13,7 @@ import './assets/icon/font_3534420_782nps767vu/iconfont.css'
 
 import ProductList from '@/components/ProductList/index.vue'
 import TabChange from '@/components/Tabs/index.vue'
+import BannerSwiper from '@/components/BannerSwiper/index.vue'
 
 Vue.use(VueAwesomeSwiper)
 Vue.use(api)
@@ -20,6 +21,7 @@ Vue.config.productionTip = false
 
 Vue.component('ProductList', ProductList)
 Vue.component('TabChange', TabChange)
+Vue.component('BannerSwiper', BannerSwiper)
 
 new Vue({
   router,

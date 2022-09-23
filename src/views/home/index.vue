@@ -1,7 +1,7 @@
 <template>
   <div class="home-wrap">
     <HeaderBar />
-    <Banner :banner="banner"/>
+    <BannerSwiper :banner="banner"/>
     <MallBanner :mall="mall"/>
     <HotZone />
     <div class="product-wrap" ref="content">
@@ -17,7 +17,6 @@
 <script>
 // import jsonp from '@/utils/jsonp'
 import HeaderBar from './components/HeaderBar.vue'
-import Banner from './components/Banner.vue'
 import MallBanner from './components/MallBanner.vue'
 import HotZone from './components/HotSale.vue'
 import scroll from '@/mixins/scroll'
@@ -26,7 +25,6 @@ export default {
   mixins: [scroll],
   components: {
     HeaderBar,
-    Banner,
     MallBanner,
     HotZone
   },

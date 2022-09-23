@@ -1,12 +1,12 @@
 <template>
-  <div class="banner-wrap">
+  <div class="banner-wrap" :class="{[layout] : true}">
     <swiper :options="swiperOption" ref="mySwiper">
       <!-- slides -->
       <swiper-slide
       v-for="(item, index) in banner"
       :key="index"
       >
-        <img :src="item.url" alt="">
+        <img :src="item.url ? item.url : item" alt="">
       </swiper-slide>
       <!-- Optional controls -->
       <div class="swiper-pagination"  slot="pagination"></div>
@@ -18,7 +18,11 @@
 export default {
   name: 'banner-swiper',
   props: {
-    banner: Array
+    banner: Array,
+    layout: {
+      type: String,
+      default: 'height'
+    }
   },
   data () {
     return {
@@ -33,14 +37,6 @@ export default {
         }
       }
     }
-  },
-  created () {
-    // this.$axios.get('/api/home').then((res) => {
-    //   const banner = res.data.data.banner
-    //   this.banner = banner
-    // }).catch((e) => {
-    //   console.log(e)
-    // })
   }
 }
 </script>
@@ -59,6 +55,11 @@ export default {
       &.swiper-pagination-bullet-active{
         background-color: $color-primary;
       }
+    }
+  }
+  &.activeheight{
+    img{
+      @include wh(100%, 490px);
     }
   }
 }

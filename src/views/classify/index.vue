@@ -21,7 +21,10 @@
         tab-name="categoryName"
         @change="rightChange"
         />
-        <ProductList class="product-list" :product="product"/>
+        <ProductList
+        class="product-list"
+        :product="product"
+        />
       </div>
     </main>
   </div>
@@ -79,7 +82,6 @@ export default {
         }].concat(item.children)
       } else {
         this.rightMenu = [{ categoryName: '全部' }]
-        this.fetchProductParams.categoryId = item.categoryId
         this.fetchProductParams.page = 1
       }
     },
