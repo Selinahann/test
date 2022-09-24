@@ -10,14 +10,23 @@ const routes = [
   },
   {
     path: '/',
+    name: 'main-tab',
     component: () => import('@/views/main/index.vue'),
     children: [
       {
         path: '/home',
+        name: 'home-tab',
+        meta: {
+          keepAlive: true
+        },
         component: () => import('@/views/home/index.vue')
       },
       {
         path: '/classify',
+        name: 'classify-tab',
+        meta: {
+          keepAlive: true
+        },
         component: () => import('@/views/classify/index.vue')
       },
       {

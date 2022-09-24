@@ -64,6 +64,12 @@ export default {
   // destroyed () {
   //   window.addEventListener('scroll', this.scroll, false)
   // },
+  // activated () {
+  //   console.log('activated 组件激活时执行')
+  // },
+  // deactivated () {
+  //   console.log('deactivated 组件停用时执行')
+  // },
   scrollBottom () {
     this.fetchProductParams.page += 1
   },

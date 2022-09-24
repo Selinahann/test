@@ -1,6 +1,8 @@
 <template>
   <div id="page">
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
     <div id="footer">
       <nav>
         <router-link
@@ -57,6 +59,8 @@ export default {
 <style lang="scss" scoped>
 #page{
   @include wh(100vw, 100vh);
+  // display: flex;
+  // flex-direction: row;
   background-color: #F8F8F8;
 }
 #footer {

@@ -25,7 +25,12 @@ export default {
   },
   mounted () {
     this.fetchCategory()
-    console.log(this.$route.params.id)
+  },
+  activated () {
+    console.log('activated 组件激活时执行')
+  },
+  deactivated () {
+    console.log('deactivated 组件停用时执行')
   },
   watch: {
     fetchProductParams: {
@@ -38,7 +43,6 @@ export default {
       const id = this.$route.params.id
       const res = await this.$api.product.detail(id)
       this.banner = res.data.images
-      console.log(res.data.images)
     }
   }
 }

@@ -6,7 +6,7 @@
         <input type="text" placeholder="搜索校园超市商品">
       </div>
     </header>
-    <main id="main">
+    <main id="main" ref="main">
       <TabChange
       class="left-tab"
       tab-name="categoryName"
@@ -31,8 +31,10 @@
 </template>
 
 <script>
+import scroll from '@/mixins/scroll'
 export default {
   name: 'classify-tab',
+  mixins: [scroll],
   data () {
     return {
       leftMenu: [],
@@ -48,12 +50,21 @@ export default {
   created () {
     this.initData()
   },
+  // activated () {
+  //   console.log('activated 组件激活时执行')
+  // },
+  // deactivated () {
+  //   console.log('deactivated 组件停用时执行')
+  // },
   watch: {
     fetchProductParams: {
       handler: 'fetchCategory',
       deep: true,
       immediate: true
     }
+  },
+  scrollBottom () {
+    this.fetchProductParams.page += 1
   },
   methods: {
     async initData () {
@@ -73,6 +84,7 @@ export default {
       }
     },
     navChange (item) {
+      this.$refs.main.scrollTo(0, 0)
       if (item.children) {
         this.fetchProductParams.categoryId = item.categoryId
         this.fetchProductParams.page = 1
@@ -86,6 +98,7 @@ export default {
       }
     },
     rightChange (item) {
+      this.$refs.main.scrollTo(0, 0)
       this.fetchProductParams.categoryId = item.categoryId
       this.fetchProductParams.page = 1
     }
@@ -95,7 +108,7 @@ export default {
 
 <style lang="scss" scoped>
 .classify-wrap{
-  @include wh(100vw, 100vh);
+  @include wh(100vw, calc(100vh - 95px));
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -129,11 +142,17 @@ export default {
     width: 100%;
     @include flex(row, flex-start, flex-start);
     flex: 1;
-    overflow: hidden;
+    overflow: auto;
     ::v-deep .right-main{
       flex: 1;
       flex-shrink: 0;
+      overflow: visible;
+      position: relative;
       .tab-wrap{
+        width: 100%;
+        position: sticky;
+        z-index: 100;
+        top: 0px;
         height: 55px;
         ul {
           li {
