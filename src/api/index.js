@@ -10,6 +10,9 @@ const api = {
   },
   category: {
     tree: () => axios.get('/home/category')
+  },
+  search: {
+    keyword: (params) => axios.get('/home/search', params)
   }
 }
 

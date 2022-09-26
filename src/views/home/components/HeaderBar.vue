@@ -1,16 +1,21 @@
 <template>
   <header id="header">
     <h1 class="title">校园超市</h1>
-    <div class="address-wrap">
+    <router-link
+    to="/search"
+    tag="div"
+    class="address-wrap"
+    >
       <a href="javascript:;">
         <i class="iconfont address">&#xe644;</i>
         <span>送至：北京八维研修学院</span>
         <i class="iconfont">&#xe616;</i>
       </a>
-      <a href="javascript:;">
+      <router-link
+      to="/search">
         <i class="iconfont">&#xe622;</i>
-      </a>
-    </div>
+      </router-link>
+    </router-link>
   </header>
 </template>
 
