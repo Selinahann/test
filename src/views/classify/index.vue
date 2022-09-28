@@ -68,7 +68,7 @@ export default {
   },
   methods: {
     async initData () {
-      const res = await this.$api.category.tree()
+      const res = await this.$api.product.tree()
       this.leftMenu = res.data
       this.rightMenu = [{
         categoryId: res.data[0].categoryId,

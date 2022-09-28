@@ -2,7 +2,7 @@
   <header id="header">
     <div class="container">
       <div class="username">
-        <h3>我的昵称</h3>
+        <h3>{{user_name}}</h3>
         <p>开启美好的一天</p>
       </div>
       <div class="userpic">
@@ -14,7 +14,10 @@
 
 <script>
 export default {
-  name: 'header-img'
+  name: 'header-img',
+  props: {
+    user_name: String
+  }
 }
 </script>
 

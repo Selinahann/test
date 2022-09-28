@@ -28,5 +28,8 @@ Vue.component('SearchBar', SearchBar)
 new Vue({
   router,
   store,
+  created () {
+    this.$store.dispatch('user/getUserInfo')
+  },
   render: h => h(App)
 }).$mount('#app')

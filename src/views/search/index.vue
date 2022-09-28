@@ -34,7 +34,7 @@ export default {
   methods: {
     async search () {
       this.sql.keyword = this.keyword
-      const res = await this.$api.search.keyword(this.sql)
+      const res = await this.$api.product.keyword(this.sql)
       this.scoped = res.data
     }
   }

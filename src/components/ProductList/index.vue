@@ -65,6 +65,7 @@ export default {
       }
     }
     dd{
+      flex: 1;
       height: 240px;
       @include flex(column, space-between, flex-start);
       header{

@@ -5,15 +5,6 @@
 <script>
 export default {
   name: 'cart-tab',
-  created () {
-    this.categoryData()
-  },
-  methods: {
-    categoryData () {
-      this.$api.category.tree().then(res => {
-        console.log(res.data.tree)
-      })
-    }
-  }
+  created () {}
 }
 </script>

@@ -64,9 +64,17 @@
   }
 }
 
-@mixin flex($direction, $justify_content, $align_items) {
+@mixin flex ($direction: row, $justify-content: flex-start, $align-items: flex-start,$flex-wrap: nowrap) {
   display: flex;
   flex-direction: $direction;
-  justify-content: $justify_content;
-  align-items: $align_items;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  flex-wrap: $flex-wrap;
+}
+
+// 文本居中
+@mixin center($height:100%){
+  height: $height;
+  line-height: $height;
+  text-align: center
 }
