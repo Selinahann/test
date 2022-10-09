@@ -1,6 +1,14 @@
 <template>
   <div class="search-bar">
-    <input type="text" v-model="val" @keydown.enter="search">
+    <div class="input-wrap">
+      <div class="location">
+        <span>
+          {{address || $store.state.user.address.formattedAddress}}
+        </span>
+        <i class="iconfont">&#xe616;</i>
+      </div>
+      <input type="text" v-model="val" @keydown.enter="search">
+    </div>
     <div
     class="search-hint-wrap"
     v-show="activeIndex"
@@ -9,7 +17,7 @@
         <li
         v-for="(item, index) in scoped"
         :key="index"
-        @click="fetchProduct"
+        @click="addressInfo(item)"
         >
           <slot :hintList="item"></slot>
         </li>
@@ -29,7 +37,8 @@ export default {
   data () {
     return {
       val: '',
-      activeIndex: 1
+      activeIndex: 1,
+      address: ''
     }
   },
   watch: {
@@ -48,8 +57,15 @@ export default {
       this.$emit('search', this.val)
       this.activeIndex = 1
     },
-    fetchProduct () {
+    addressInfo (item) {
       this.activeIndex = 0
+      this.$store.commit('user/SET_ADDRESS', {
+        district: item.district,
+        street: item.address,
+        formattedAddress: item.name
+      })
+      this.address = this.$store.state.location.address.formattedAddress
+      this.$router.push('/home')
     }
   }
 }
@@ -62,9 +78,22 @@ export default {
     padding: 0 20px;
     box-sizing: border-box;
     background-color: #fff;
+    .input-wrap{
+      @include wh(100%, 98px);
+      @include flex(row, flex-start, center);
+      .location{
+        max-width: 120px;
+        height: 32px;;
+        overflow: hidden;
+        @include flex(row);
+        font-size: 12px;
+        .current-localtion{
+          @include wh(100%, auto);
+        }
+      }
+    }
     input{
-      flex: 1;
-      height: 64px;
+      @include wh(594px, 64px);
       border-radius: 32px;
       border: 0;
       padding-left: 20px;

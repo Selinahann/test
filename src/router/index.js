@@ -48,6 +48,9 @@ const routes = [
           isAuthenticated: true,
           title: '个人中心'
         }
+      },
+      {
+        path: '/new/address'
       }
     ]
   },
@@ -71,7 +74,34 @@ const routes = [
   {
     path: '/login',
     name: 'login-page',
+    meta: {
+      title: '登录'
+    },
     component: () => import('@/views/login/index.vue')
+  },
+  {
+    path: '/map',
+    name: 'map-page',
+    meta: {
+      title: '地图'
+    },
+    component: () => import('@/views/map/index.vue')
+  },
+  {
+    path: '/geolocation',
+    name: 'geolocation',
+    meta: {
+      title: '定位'
+    },
+    component: () => import('@/views/geolocation/index.vue')
+  },
+  {
+    path: '/address',
+    name: 'address-page',
+    meta: {
+      title: '定位'
+    },
+    component: () => import('@/views/address/index.vue')
   }
 ]
 
@@ -97,7 +127,17 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-  next()
+  // const address = localStorage.getItem('address')
+  // if (address) {
+  //   next()
+  // } else {
+  //   next({
+  //     path: '/geolocaltion',
+  //     query: {
+  //       callback: to.path
+  //     }
+  //   })
+  // }
 })
 router.afterEach((to, from) => {
   document.title = to.meta.title
