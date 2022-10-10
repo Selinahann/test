@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'loading-animation',
+  name: 'LoadingAnimation',
   data () {
     return {
       show: false

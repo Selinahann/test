@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: 'tab-change',
+  name: 'TabChange',
   props: {
     tab: Array,
     tabName: {

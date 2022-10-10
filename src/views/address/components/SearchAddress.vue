@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: 'search-bar',
+  name: 'SearchAddress',
   props: {
     value: String,
     clear: Boolean,
@@ -48,9 +48,6 @@ export default {
     value () {
       this.val = this.value
     }
-  },
-  mounted () {
-    console.log(this.$attrs)
   },
   methods: {
     search (index) {

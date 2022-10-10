@@ -103,7 +103,7 @@ export default {
         this.showpopup = true
         this.pois = res.pois
         this.$loading.hide()
-        console.log(res)
+        // console.log(res)
       }).catch(() => {
         // this.$message.error('定位失败')
       })

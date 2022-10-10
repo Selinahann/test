@@ -48,9 +48,6 @@ const routes = [
           isAuthenticated: true,
           title: '个人中心'
         }
-      },
-      {
-        path: '/new/address'
       }
     ]
   },
@@ -99,9 +96,17 @@ const routes = [
     path: '/address',
     name: 'address-page',
     meta: {
-      title: '定位'
+      title: '选择地址'
     },
     component: () => import('@/views/address/index.vue')
+  },
+  {
+    path: '/new/address',
+    name: 'edit-address',
+    component: () => import('@/views/EditAddress/index.vue'),
+    meta: {
+      title: '新增地址'
+    }
   }
 ]
 

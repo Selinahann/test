@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: 'search-bar',
+  name: 'SearchBar',
   props: {
     value: String,
     clear: Boolean,

@@ -73,7 +73,7 @@
 }
 
 // 文本居中
-@mixin center($height:100%){
+@mixin center($height: 100%){
   height: $height;
   line-height: $height;
   text-align: center

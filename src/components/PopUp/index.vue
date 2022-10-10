@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: 'pop-up',
+  name: 'PopUp',
   props: {
     title: String,
     visible: Boolean

@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'banner-swiper',
+  name: 'BannerSwiper',
   props: {
     banner: Array,
     layout: {
