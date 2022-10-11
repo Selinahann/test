@@ -18,12 +18,13 @@ export default {
 .field-item{
   @include wh(100%, auto);
   @include flex(row);
-  border: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
   label{
     flex-shrink: 0;
     width: 200px;
     display: block;
     line-height: 88px;
+    font-size: 12px;
   }
 }
 </style>
