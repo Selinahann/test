@@ -27,11 +27,13 @@ export default {
     }
   },
   computed: {
-    formattedVal: {
+    formatval: {
       get () {
-        return this.val
+        return this.val.replace(/(\d{3})(\d{0,4})(\d{0,4})/, '$1 $2 $3').replace(/\s+$/, '')
       },
-      set () {}
+      set (value) {
+        this.val = value.replace(/\s+/g, '')
+      }
     }
   }
 }

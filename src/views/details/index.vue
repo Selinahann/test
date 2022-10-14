@@ -36,9 +36,7 @@ export default {
   //   console.log('deactivated 组件停用时执行')
   // },
   watch: {
-    tip () {
-      console.log('tip', this.tip)
-    },
+    tip () {},
     fetchProductParams: {
       handler: 'fetchCategory',
       deep: true

@@ -101,10 +101,12 @@ const routes = [
     component: () => import('@/views/address/index.vue')
   },
   {
-    path: '/new/address',
+    path: '/edit/address',
     name: 'edit-address',
     component: () => import('@/views/EditAddress/index.vue'),
     meta: {
+      isAuthenticated: true,
+      keepAlive: true,
       title: '新增地址'
     }
   }

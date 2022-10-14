@@ -36,10 +36,29 @@
         </ul>
       </PopUp>
       <LoadingAnimation :loading="showpopup"></LoadingAnimation>
+      <div class="history-list">
+        <h2 class="title">历史地址</h2>
+        <div class="list-wrap">
+          <ul>
+            <li v-for="(item, index) in userAddress" :key="index">
+              <input
+                type="checkbox"
+                :checked="item.isDefault === '1'"
+                @change="selectAddress($event, item)"
+              >
+              <div class="item">
+                <h3>{{item.name}}</h3>
+                <p>{{item.phone}}</p>
+                <p>{{item.address}}</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </main>
     <footer id="footer">
       <router-link
-      to="/new/address"
+      to="/edit/address"
       class="add-address"
       v-show="!showpopup"
       >
@@ -53,6 +72,7 @@
 import SearchAddress from './components/SearchAddress.vue'
 import AMap from 'AMap'
 import map from '@/utils/map'
+import { mapState } from 'vuex'
 export default {
   name: 'address-page',
   components: {
@@ -66,6 +86,9 @@ export default {
       pois: [],
       showpopup: false
     }
+  },
+  computed: {
+    ...mapState('user', ['userAddress'])
   },
   watch: {
     keyword () {
@@ -103,9 +126,16 @@ export default {
         this.showpopup = true
         this.pois = res.pois
         this.$loading.hide()
-        // console.log(res)
       }).catch(() => {
-        // this.$message.error('定位失败')
+        this.$message.error('定位失败')
+      })
+    },
+    selectAddress (e, item) {
+      console.log(e.target.checked, item)
+      this.$api.address.update(item.id, {
+        isDefault: e.target.checked ? '1' : '0'
+      }).then(() => {
+        this.$store.dispatch('user/getUserAddress')
       })
     }
   }
@@ -143,6 +173,38 @@ export default {
           }
           p{
             color: #999;
+          }
+        }
+      }
+    }
+    .history-list{
+      @include wh(100%, auto);
+      margin-top: 20px;
+      h2.title {
+        @include wh(100%, auto);
+        padding: 24px;
+        box-sizing: border-box;
+        font-size: 24px;
+      }
+      .list-wrap{
+        @include wh(100%, auto);
+        background-color: #fff;
+        ul{
+          li{
+            @include wh(100%, auto);
+            @include flex(row, flex-start, center);
+            padding: 24px;
+            box-sizing: border-box;
+            border-bottom: 1px solid #E0E0E0;
+            .item {
+              margin-left: 24px;
+              color: #666;
+              line-height: 40px;
+              h3{
+                font-size: 28px;
+                color: #333;
+              }
+            }
           }
         }
       }

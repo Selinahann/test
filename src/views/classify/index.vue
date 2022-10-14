@@ -63,9 +63,9 @@ export default {
       immediate: true
     }
   },
-  scrollBottom () {
-    this.fetchProductParams.page += 1
-  },
+  // scrollBottom () {
+  //   this.fetchProductParams.page += 1
+  // },
   methods: {
     async initData () {
       const res = await this.$api.product.tree()

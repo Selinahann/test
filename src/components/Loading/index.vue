@@ -11,6 +11,9 @@ export default {
     return {
       show: false
     }
+  },
+  destoryed () {
+    document.body.removeChild(this.$el)
   }
 }
 </script>

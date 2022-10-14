@@ -6,6 +6,7 @@ import api from '@/api/index'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import autoComponents from '@/plugins/autoComponents.js'
 import { InputItem } from 'mand-mobile'
+import FastClick from 'fastclick'
 
 import 'animate.css'
 import '@/assets/scss/reset.css'
@@ -14,6 +15,7 @@ import '@/utils/rem'
 import 'swiper/dist/css/swiper.min.css'
 import './assets/icon/font_3534420_782nps767vu/iconfont.css'
 
+FastClick.attach(document.body)
 Vue.config.productionTip = false
 Vue.use(VueAwesomeSwiper)
 Vue.use(api)

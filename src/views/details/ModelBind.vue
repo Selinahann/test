@@ -18,11 +18,9 @@ export default {
   watch: {
     val () {
       this.$emit('update:value', this.val)
-      console.log('val', this.val)
     },
     value () {
       this.val = this.value
-      console.log('value', this.value)
     }
   },
   methods: {
