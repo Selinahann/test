@@ -19,6 +19,13 @@ export const api = {
     create: (params) => axios.post('/user/address', params),
     list: () => axios.get('/user/address'),
     update: (id, params) => axios.put('/user/address/' + id, params)
+  },
+  cart: {
+    add: (params) => axios.post('/user/cart', params),
+    list: () => axios.get('/user/cart'),
+    update: (id, params) => axios.put('/user/cart/' + id, params),
+    updateAll: (params) => axios.put('/user/cart', params),
+    delete: (id) => axios.delete('/user/cart/' + id)
   }
 }
 

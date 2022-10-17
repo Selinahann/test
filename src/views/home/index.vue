@@ -4,12 +4,15 @@
     <BannerSwiper :banner="banner"/>
     <MallBanner :mall="mall"/>
     <HotZone />
-    <div class="product-wrap" ref="content">
+    <div class="product-part" ref="content">
       <TabChange
       :tab="tab"
       @change="navChange"
       />
-      <ProductList :product="product"/>
+      <ProductList
+      :product="product"
+      @click="cart"
+      />
     </div>
   </div>
 </template>
@@ -40,6 +43,11 @@ export default {
         categoryId: 1
       },
       num: 0
+    }
+  },
+  filters: {
+    formatPrice (price) {
+      return price / 100
     }
   },
   watch: {
@@ -106,6 +114,10 @@ export default {
       if (scrollTop > top) {
         window.scrollTo(0, top)
       }
+    },
+    cart (item) {
+      this.propductItem = item
+      this.showpopup = true
     }
   }
 }
@@ -113,8 +125,20 @@ export default {
 
 <style lang="scss" scoped>
 .home-wrap{
-  .product-wrap{
+  .product-part{
     position: relative;
+  }
+  .cart-item{
+    @include wh(100%, 100vh);
+    dl {
+      @include wh(100%, auto);
+      dt {
+        @include wh(100%, auto);
+        img {
+          @include wh(100%, auto);
+        }
+      }
+    }
   }
 }
 </style>

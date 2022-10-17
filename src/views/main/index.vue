@@ -11,6 +11,7 @@
         :to="item.path"
         active-class="active"
         >
+          <span class="num" v-if="item.path === '/cart'">{{count}}</span>
           <img :src="item.icon" alt="" class="icon">
           <img :src="item.select_icon" alt="" class="select-icon">
           <span class="text">{{item.text}}</span>
@@ -21,6 +22,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'main-tab',
   data () {
@@ -52,6 +54,9 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapGetters('cart', ['count'])
   }
 }
 </script>

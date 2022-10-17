@@ -1,12 +1,11 @@
 <template>
-  <div class="product-wrap" ref="product" @click.stop>
-    <router-link
-    v-for="(item, index) in product"
+  <div class="product-wrap">
+    <dl
+    v-for="(item, index) in cartList"
     :key="index"
-    :to="`/detail/${item.id}`"
-    tag="dl"
     >
       <dt class="image">
+        <input type="checkbox" :checked="item.isActive === '1'" @click="handlerActiveChange($event, item)">
         <img :src="item.img" alt="">
       </dt>
       <dd>
@@ -24,26 +23,22 @@
               <i class="num">{{item.price | formatPrice}}</i>
             </span>
           </div>
-          <AddCartBtn class="add-btn" @click="additem(item)" :propductItem = "propductItem">
-            <i class="iconfont">&#xe70b;</i>
-          </AddCartBtn>
+          <NumButton class="num-btn" v-model="item.num" @change="numChange(item)"></NumButton>
         </footer>
       </dd>
-    </router-link>
+    </dl>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-  name: 'ProductList',
-  props: {
-    product: Array
-  },
+  name: 'CartList',
   data () {
-    return {
-      showpopup: false,
-      propductItem: {}
-    }
+    return {}
+  },
+  computed: {
+    ...mapState('cart', ['cartList'])
   },
   filters: {
     formatPrice (price) {
@@ -51,10 +46,28 @@ export default {
     }
   },
   methods: {
-    additem (item) {
-      this.propductItem = item
-      const html = document.querySelector('html')
-      html.style.overflowY = 'hidden'
+    numChange (item) {
+      if (item.num <= 0) {
+        if (confirm('确定要删除该商品吗？')) {
+          this.$api.cart.delete(item.id)
+          this.$store.dispatch('cart/getCartList')
+        } else {
+          this.$nextTick(() => {
+            item.num = 1
+          })
+        }
+      } else {
+        this.$api.cart.update(item.id, {
+          num: item.num
+        })
+      }
+    },
+    handlerActiveChange (e, item) {
+      this.$api.cart.update(item.id, {
+        isActive: e.target.checked ? '1' : '0'
+      }).then(() => {
+        this.$store.dispatch('cart/getCartList')
+      })
     }
   }
 }

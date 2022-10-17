@@ -3,7 +3,7 @@
   enter-active-class="animate__animated animate__fadeIn"
   leave-active-class="animate__animated animate__fadeOut"
 >
-  <div class="popup-wrap" v-show="visible" @click.prevent="close">
+  <div class="popup-wrap" v-show="visible" @click.prevent="close" @scroll.stop.prevent>
     <transition
       enter-active-class="animate__animated animate__slideInUp"
       leave-active-class="animate__animated animate__slideOutDown"
@@ -35,6 +35,8 @@ export default {
   },
   methods: {
     close () {
+      const html = document.querySelector('html')
+      html.style.overflowY = 'auto'
       this.$emit('update:visible', false)
     }
   }
@@ -49,6 +51,7 @@ export default {
   bottom: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.2);
+  z-index: 100;
   .popup-box{
     @include wh(100%, auto);
     overflow: auto;
@@ -69,7 +72,7 @@ export default {
       }
     }
     .content{
-      max-height: 50vh;
+      min-height: 50vh;
       overflow: auto;
     }
   }

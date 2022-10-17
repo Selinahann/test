@@ -28,13 +28,13 @@ const user = {
       if (token) {
         api.user.info().then(res => {
           dispatch('getUserAddress')
+          dispatch('cart/getCartList', null, { root: true })
           commit('SET_USERIFON', res.data)
         })
       }
     },
     getUserAddress ({ commit }) {
       api.address.list().then((res) => {
-        console.log(res)
         commit('SET_USERADDRESS', res.data)
       })
     }
