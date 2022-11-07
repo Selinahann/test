@@ -48,6 +48,11 @@ const routes = [
           isAuthenticated: true,
           title: '个人中心'
         }
+      },
+      {
+        path: '/test',
+        name: 'test-use',
+        component: () => import('@/views/test/index.vue')
       }
     ]
   },
@@ -58,10 +63,6 @@ const routes = [
     meta: {
       title: '详情'
     }
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    // component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
     path: '/search',
@@ -134,17 +135,6 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-  // const address = localStorage.getItem('address')
-  // if (address) {
-  //   next()
-  // } else {
-  //   next({
-  //     path: '/geolocaltion',
-  //     query: {
-  //       callback: to.path
-  //     }
-  //   })
-  // }
 })
 router.afterEach((to, from) => {
   document.title = to.meta.title
