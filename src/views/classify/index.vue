@@ -14,7 +14,9 @@
       layout="column"
       @change="navChange"
       />
-      <div class="right-main">
+      <div class="right-main"
+      ref="listRef" @scroll="handlerScroll"
+      >
         <TabChange
         class="right-tab"
         :tab="rightMenu"
@@ -44,18 +46,23 @@ export default {
         page: 1,
         page_size: 10,
         categoryId: 1
-      }
+      },
+      scrollTop: ''
     }
   },
   created () {
     this.initData()
   },
-  // activated () {
-  //   console.log('activated 组件激活时执行')
-  // },
+  activated () {
+    this.$refs.main.scrollTop = this.scrollTop
+    // console.log('activated 组件激活时执行', this.$refs.listRef, this.scrollTop)
+  },
   // deactivated () {
-  //   console.log('deactivated 组件停用时执行')
+  //   console.log('deactivated 组件停用时执行', this.$refs.listRef.scrollTop)
   // },
+  mounted () {
+    addEventListener('scroll', this.handlerScroll, true)
+  },
   watch: {
     fetchProductParams: {
       handler: 'fetchCategory',
@@ -67,6 +74,9 @@ export default {
   //   this.fetchProductParams.page += 1
   // },
   methods: {
+    handlerScroll () {
+      this.scrollTop = this.$refs.main.scrollTop
+    },
     async initData () {
       const res = await this.$api.product.tree()
       this.leftMenu = res.data
