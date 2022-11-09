@@ -62,6 +62,7 @@ export default {
   // },
   mounted () {
     addEventListener('scroll', this.handlerScroll, true)
+    addEventListener('scroll', this.scrollBottom, true)
   },
   watch: {
     fetchProductParams: {
@@ -70,12 +71,17 @@ export default {
       immediate: true
     }
   },
-  // scrollBottom () {
-  //   this.fetchProductParams.page += 1
-  // },
   methods: {
     handlerScroll () {
       this.scrollTop = this.$refs.main.scrollTop
+    },
+    scrollBottom () {
+      const pageHeight = this.$refs.listRef.offsetHeight
+      const clientHeight = this.$refs.main.clientHeight
+      const scrollTop = this.$refs.main.scrollTop
+      if (pageHeight < clientHeight + scrollTop + 10) {
+        this.fetchProductParams.page += 1
+      }
     },
     async initData () {
       const res = await this.$api.product.tree()
